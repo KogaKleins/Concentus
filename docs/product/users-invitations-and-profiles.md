@@ -62,6 +62,9 @@ flowchart TD
 - **USR-11:** recuperação de senha ocorre exclusivamente por e-mail; maestro não
   cria nem conhece senhas temporárias.
 - **USR-12:** um convite vazado não pode ser aceito por conta de e-mail diferente.
+- **USR-13:** troca de e-mail global é feita somente pelo dono da conta, exige
+  reautenticação recente, validação do novo endereço, aviso ao e-mail antigo e
+  revogação das demais sessões.
 
 ## 4. Nome visível
 

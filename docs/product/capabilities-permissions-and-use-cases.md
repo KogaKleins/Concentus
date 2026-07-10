@@ -1,6 +1,6 @@
 # Matriz de capacidades, permissões e casos de uso da V1
 
-Status: Proposto para validação
+Status: Aceito
 
 Última revisão: 2026-07-09
 
@@ -136,13 +136,11 @@ flowchart TD
 | CAP-ID-10 | Solicitar exclusão de conta global | Dono da conta | Somente se não participar mais de nenhuma orquestra | Plataforma | Fluxo de confirmação posterior |
 | CAP-ID-11 | Configurar MFA do próprio usuário | Dono da conta | Obrigatório para master; opcional para maestro/admin | Segurança | Eventos de configuração |
 | CAP-ID-12 | Desativar MFA obrigatório do master | Bloqueado | MFA do master é requisito de segurança | — | — |
+| CAP-ID-13 | Alterar e-mail próprio | Dono da conta | Reautenticação recente, novo e-mail único e validação do novo endereço | Segurança/identidade | Avisar e-mail antigo e revogar outras sessões |
 
-Pendência descoberta:
-
-- **PEN-17:** política de troca de e-mail da conta global. Precisa definir se a V1
-  permitirá alteração pelo próprio usuário com reautenticação e validação do novo
-  e-mail, ou se isso ficará para suporte técnico. Momento limite: antes de
-  implementar identidade, recuperação e convites.
+Maestro/admin não altera e-mail de outro usuário. Admin master também não usa
+troca direta como rotina de suporte; em incidente, bloqueia conta, revoga sessões
+ou orienta recuperação segura.
 
 ### 5.3 Convites, membros e perfis
 
@@ -228,21 +226,22 @@ Pendência descoberta:
 | CAP-COM-07 | Agendar publicação | Autor com permissão de publicar | Usa fuso horário da orquestra | Orquestra | Job de publicação |
 | CAP-COM-08 | Fixar comunicado até data | Autor com permissão de publicar | Data futura válida | Orquestra | Job de desfixação, se necessário |
 | CAP-COM-09 | Definir prioridade | Autor com permissão de publicar | Usa níveis configurados da orquestra | Orquestra | Pode exigir ciência |
-| CAP-COM-10 | Editar comunicado publicado | Autor, autoridade superior ou mesmo peso | Escolhe notificar novamente ou correção silenciosa | Orquestra | Opcional |
-| CAP-COM-11 | Encerrar comentários/enquete antes do prazo | Autor ou autoridade superior | Interações abertas | Orquestra | Notificar público afetado |
+| CAP-COM-10 | Editar comunicado publicado | Autor, autoridade superior ou mesmo peso | Escolhe notificar novamente ou correção silenciosa; mudança de público é material | Orquestra | Opcional para texto; novos destinatários são notificados quando público muda |
+| CAP-COM-11 | Encerrar comentários, reações ou enquete antes do prazo | Autor ou autoridade superior | Interações abertas | Orquestra | Notificar público afetado |
 | CAP-COM-12 | Expirar comunicado | Sistema | Data de expiração no fuso da orquestra | Orquestra | Remover da visão dos músicos |
 | CAP-COM-13 | Excluir comunicado expirado permanentemente | Maestro/admin | Remove anexos físicos; preserva log mínimo | Orquestra | Remoção de arquivos |
-| CAP-COM-14 | Confirmar ciência | Destinatário | Comunicado exige ciência | Orquestra | Atualizar pendências |
+| CAP-COM-14 | Confirmar ciência | Destinatário ativo atual | Comunicado exige ciência e não expirou | Orquestra | Atualizar pendências |
 | CAP-COM-15 | Consultar confirmados e pendentes | Maestro/admin; autor do comunicado no próprio escopo | Somente comunicados sob sua autoridade | Orquestra | — |
-| CAP-COM-16 | Comentar | Destinatário | Comentários abertos | Orquestra | Notificar autor, agrupado |
+| CAP-COM-16 | Comentar | Destinatário ativo | Comentários abertos e comunicado não expirado | Orquestra | Notificar autor, agrupado |
 | CAP-COM-17 | Editar/excluir comentário próprio | Autor do comentário | Enquanto comentários estiverem abertos | Orquestra | Atualizar tela por SSE |
-| CAP-COM-18 | Moderar comentário | Autor do comunicado; maestro/admin | Excluir ou editar comentário inadequado | Orquestra | Atualizar tela por SSE |
+| CAP-COM-18 | Moderar comentário | Autor do comunicado; maestro/admin | Excluir, ocultar ou editar comentário inadequado, preservando histórico | Orquestra | Atualizar tela por SSE |
 | CAP-COM-19 | Descobrir identidade de comentário anônimo pela interface | Bloqueado | Anônimo na interface para todos | — | — |
-| CAP-COM-20 | Reagir | Destinatário | Reações habilitadas | Orquestra | Atualizar tela por SSE |
-| CAP-COM-21 | Votar em enquete | Destinatário | Enquete aberta; uma resposta ativa | Orquestra | Atualizar resultado por SSE |
-| CAP-COM-22 | Alterar voto | Destinatário | Enquanto enquete estiver aberta | Orquestra | Atualizar resultado por SSE |
+| CAP-COM-20 | Criar, alterar ou remover reação | Destinatário ativo | Reações habilitadas; uma reação ativa por comunicado | Orquestra | Atualizar tela por SSE |
+| CAP-COM-21 | Votar em enquete | Destinatário ativo | Enquete aberta, comunicado não expirado e uma resposta ativa | Orquestra | Atualizar resultado por SSE |
+| CAP-COM-22 | Alterar voto | Destinatário ativo | Enquanto enquete estiver aberta e comunicado não expirado | Orquestra | Atualizar resultado por SSE |
 | CAP-COM-23 | Configurar prioridades | Maestro/admin | Níveis por orquestra | Orquestra | — |
 | CAP-COM-24 | Configurar modelos de notificação | Maestro/admin | Variáveis seguras e estruturais | Orquestra | — |
+| CAP-COM-25 | Cancelar publicação agendada | Autor ou autoridade superior | Antes da publicação; volta para rascunho | Orquestra | Sem notificação ao público final |
 
 ### 5.7 Notificações
 

@@ -62,6 +62,21 @@ produto adota a política definida em
   referências e registro formal dos riscos residuais.
 - Mapa de blocos e prontidão aprovado como espinha dorsal até iniciar código, e
   matriz P1 de capacidades, permissões e casos de uso criada para validação.
+- Revisão crítica de comunicados e notificações, fechando regras de público,
+  ciência, anonimato, interações, anexos, estados e idempotência.
+- Matriz P1 aceita e início do P2 com estratégia de ondas do modelo lógico,
+  regras de migrações/seeds e dicionário inicial do domínio `identity`.
+- Dicionário inicial do domínio `tenancy`, cobrindo orquestras, perfis, convites,
+  campos personalizados, espaços, naipes, vozes e formação padrão.
+- Dicionário inicial de autorização e concessões, com `resource_nodes`,
+  `access_grants`, `access_blocks` e `change_requests` no schema `content`,
+  deixando claro que a regra pertence ao módulo de Autorização.
+- Dicionário inicial do domínio `content`, cobrindo bibliotecas, pastas, obras,
+  plano de distribuição, materiais, stored files, uploads em lote, publicações em
+  lote, política de download e logs técnicos temporários.
+- Dicionário inicial do domínio `communication`, cobrindo comunicados,
+  prioridades, públicos, anexos, ciência, comentários, revisões, reações,
+  enquetes, templates e notificações internas idempotentes.
 
 ### Changed
 

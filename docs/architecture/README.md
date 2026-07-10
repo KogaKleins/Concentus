@@ -14,12 +14,12 @@ produzidos antes da implementação. Escolher a stack não encerra a arquitetura
 | Blocos de projeção e prontidão | Aceito | `../governance/project-blocks-and-readiness.md` |
 | Stack e acesso a dados | Definido | ADR-0005 |
 | Modelo conceitual | Definido, sujeito ao modelo lógico | `conceptual-data-model.md` |
-| Matriz de capacidades e casos de uso | Proposto para validação | `../product/capabilities-permissions-and-use-cases.md` |
+| Matriz de capacidades e casos de uso | Aceito | `../product/capabilities-permissions-and-use-cases.md` |
 | Segurança não funcional | Requisitos iniciais definidos | `security-and-non-functional-requirements.md` |
 | Estratégia de testes | Definido | `testing-strategy.md` e ADR-0014 |
 | Backend modular e workers | Definido inicialmente | `backend/README.md`, ADR-0015 e ADR-0016 |
 | Convenções de banco | Definido | `database/conventions.md` e ADR-0006 |
-| Modelo lógico e dicionário | Estrutura criada; domínios ainda serão detalhados | `database/README.md` |
+| Modelo lógico e dicionário | Em modelagem P2 | `database/README.md` |
 | RLS e tenant context | Definido | `security/rls-and-tenant-context.md` e ADR-0019 |
 | Rate limit e abuso | Definido | `security/rate-limit-and-abuse.md` e ADR-0020 |
 | Upload seguro e antimalware | Definido | `security/secure-uploads-and-antimalware.md` e ADR-0021 |
@@ -109,8 +109,8 @@ flowchart TD
     E --> F[Segredos, backup e incidentes aceito]
     F --> G[Testes de segurança e aceite aceitos]
     G --> H[Mapa de blocos e prontidão aceito]
-    H --> I[Matriz de capacidades, permissões e casos de uso V1 em validação]
-    I --> J[Modelo lógico, migrações, seeds e dicionário]
+    H --> I[Matriz de capacidades, permissões e casos de uso V1 aceita]
+    I --> J[Modelo lógico, migrações, seeds e dicionário em andamento]
     J --> K[Contrato HTTP e OpenAPI]
     K --> L[UX navegável e arquitetura de informação]
     L --> M[Estrutura de monorepo, operação local e CI]

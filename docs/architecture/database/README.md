@@ -36,11 +36,11 @@ existe; a divergência documental é um defeito e deve ser corrigida imediatamen
 | Documento | Estado | Finalidade |
 |---|---|---|
 | [Convenções](conventions.md) | Definido | Nomes, tipos, chaves, constraints e índices |
-| [Modelo lógico](logical-model.md) | Inicial | Schemas, domínios e inventário previsto |
+| [Modelo lógico](logical-model.md) | Em modelagem P2 | Schemas, domínios e inventário previsto |
 | [Dicionário](dictionary/README.md) | Estrutura definida | Índice de tabelas por domínio |
 | [Modelo de ficha](dictionary/table-template.md) | Definido | Formato obrigatório para cada tabela |
 | [RLS e contexto de tenant](../security/rls-and-tenant-context.md) | Definido | Políticas e propagação por transação |
-| Migrações e seeds | A criar | Evolução, rollback e dados iniciais |
+| [Migrações e seeds](migrations-and-seeds.md) | Proposto para P2 | Evolução, rollback e dados iniciais |
 | Índices e desempenho | A criar | Estratégia de acesso e observabilidade |
 
 ## 4. Fluxo de criação de tabela
@@ -74,6 +74,7 @@ database/
     ├── table-template.md
     ├── identity.md
     ├── tenancy.md
+    ├── authorization-and-access.md
     ├── content.md
     ├── communication.md
     └── audit.md

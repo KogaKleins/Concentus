@@ -67,7 +67,7 @@ explícita.
 |---|---|---|---|
 | B00 Governança documental | Definido | `README.md`, `docs/README.md`, `reference/versioning.md`, ADR-0004, `governance/decision-process.md` | Define documentação viva, changelog, ADRs e processo de decisão embasada. |
 | B01 Produto e escopo da V1 | Definido conceitualmente | `product/vision-and-scope.md`, `product/roadmap-and-open-decisions.md` | Define Concentus como plataforma multi-orquestra, com V1 focada em identidade, bibliotecas, materiais e comunicação. |
-| B02 Papéis, hierarquia e permissões conceituais | Em validação operacional | `product/roles-and-permissions.md`, `product/capabilities-permissions-and-use-cases.md`, ADR-0003 | Regras gerais existem; a matriz detalhada de ações foi criada para validação. |
+| B02 Papéis, hierarquia e permissões conceituais | Aceito operacionalmente | `product/roles-and-permissions.md`, `product/capabilities-permissions-and-use-cases.md`, ADR-0003 | Regras gerais e matriz detalhada de ações da V1 estão aceitas. |
 | B03 Usuários, convites e perfis | Definido conceitualmente | `product/users-invitations-and-profiles.md`, ADR-0002 | Conta global e perfis por orquestra estão definidos. |
 | B04 Orquestras, espaços, naipes e vozes | Definido conceitualmente | `product/orchestras-spaces-sections-and-voices.md` | Faltam detalhes de schema lógico e constraints. |
 | B05 Bibliotecas, obras e materiais | Definido conceitualmente | `product/libraries-works-and-materials.md` | Regras de publicação, rascunho, download e compartilhamento existem; falta matriz por ação e banco lógico. |
@@ -113,7 +113,7 @@ Critério de pronto:
 
 ### P1 — Matriz de capacidades, permissões e casos de uso V1
 
-Estado: criado para validação.
+Estado: aceito.
 
 Este é o bloco recomendado antes do banco.
 
@@ -260,24 +260,23 @@ verdadeiros ou explicitamente adiados com justificativa:
 
 ## 6. Próximo bloco recomendado
 
-A recomendação é não ir direto para o banco ainda.
+P1 foi aceito. O próximo bloco é banco.
 
 O próximo bloco deve ser:
 
-> **P1 — Matriz de capacidades, permissões e casos de uso V1.**
+> **P2 — Modelo lógico relacional, migrações, seeds e dicionário.**
 
-Motivo: o modelo lógico do banco depende diretamente das ações que o sistema
-precisa autorizar, auditar, notificar e bloquear. Se modelarmos tabelas antes de
-fechar ações, podemos criar uma estrutura aparentemente correta, mas frágil para
-permissões reais.
+Motivo: as ações da V1 já foram traduzidas em permissões, auditoria e efeitos
+assíncronos. Agora o banco precisa representar essas regras sem esconder lógica
+crítica em código disperso ou JSON opaco.
 
-Depois de P1, o caminho natural é:
+Depois de P2, o caminho natural é:
 
-1. modelo lógico relacional;
-2. dicionário de dados;
-3. contrato OpenAPI;
-4. protótipo navegável;
-5. estrutura de código.
+1. contrato OpenAPI;
+2. protótipo navegável;
+3. estrutura de monorepo e convenções de implementação;
+4. fundação operacional local e CI;
+5. backlog vertical para iniciar código.
 
 ## 7. Regra de manutenção
 

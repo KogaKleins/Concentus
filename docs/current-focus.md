@@ -30,20 +30,24 @@ Já foram consolidados:
 - upload seguro, quarentena, antimalware e entrega privada de arquivos;
 - segredos fora do código, backup/restore testado e resposta a incidentes;
 - testes de segurança e critérios de aceite;
-- mapa de blocos e prontidão aprovado como espinha dorsal do planejamento.
+- mapa de blocos e prontidão aprovado como espinha dorsal do planejamento;
+- matriz detalhada de capacidades, permissões e casos de uso da V1 aceita.
 
 ## 2. Próximo foco
 
-Foco atual: **validar a matriz detalhada de capacidades, permissões e casos de
-uso da V1**.
+Foco atual: **P2 — modelo lógico relacional, migrações, seeds e dicionário de dados**.
 
-Motivo: o modelo lógico relacional depende das ações que o sistema precisa
-autorizar, auditar, notificar e bloquear. Antes de desenhar tabelas definitivas,
-precisamos traduzir a hierarquia e as regras de produto em ações verificáveis.
+Onda atual: **comunicação e notificações**, cobrindo comunicados, públicos,
+prioridades, anexos, ciência, comentários, anonimato, reações, enquetes,
+templates e notificações internas idempotentes.
+
+Motivo: as ações da V1 já foram traduzidas em capacidades verificáveis. Agora o
+banco precisa representar tenants, usuários, escopos, permissões, conteúdo,
+comunicação, arquivos, jobs e auditoria de forma clara, rastreável e segura.
 
 O mapa completo dos blocos está em
 [Blocos de projeção e prontidão](governance/project-blocks-and-readiness.md).
-A matriz P1 está em
+A matriz P1 aceita está em
 [Capacidades, permissões e casos de uso](product/capabilities-permissions-and-use-cases.md).
 
 Ordem recomendada:
@@ -57,8 +61,8 @@ flowchart TD
     E --> F[Segredos, backup e incidentes aceito]
     F --> G[Testes de segurança e critérios de aceite aceitos]
     G --> H[Mapa de blocos e prontidão aceito]
-    H --> I[Matriz de capacidades, permissões e casos de uso V1 em validação]
-    I --> J[Modelo lógico, migrações, seeds e dicionário]
+    H --> I[Matriz de capacidades, permissões e casos de uso V1 aceita]
+    I --> J[Modelo lógico, migrações, seeds e dicionário em andamento]
 ```
 
 ## 3. Não abrir ainda

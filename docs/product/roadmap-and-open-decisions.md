@@ -102,7 +102,6 @@ das áreas correspondentes serem implementadas.
 | PEN-02 | Provedor de e-mail e armazenamento de objetos | Antes da F1 |
 | PEN-06 | Redirecionamento quando o slug da orquestra mudar | Antes de editar URL |
 | PEN-16 | Slots, limites e moderação de imagens institucionais por orquestra | Antes da personalização de mídia |
-| PEN-17 | Política de troca de e-mail da conta global | Antes de implementar identidade, recuperação e convites |
 
 ## 5. Decisões já consolidadas
 
@@ -136,6 +135,8 @@ das áreas correspondentes serem implementadas.
 | BACK-01 | Nove módulos iniciais, tabela com um proprietário e efeitos não críticos após commit |
 | BACK-02 | pg-boss sobre PostgreSQL, job criado na mesma transação e worker em `apps/worker` |
 | GOV-01 | Mapa de blocos e prontidão aprovado como espinha dorsal até iniciar código |
+| P1-01 | Matriz detalhada de capacidades, permissões e casos de uso da V1 aceita |
+| ID-01 | Troca de e-mail global exige dono da conta, reautenticação, validação do novo endereço, aviso ao antigo e revogação das demais sessões |
 
 ## 6. Cenários essenciais de aceite da V1
 
@@ -187,8 +188,8 @@ das áreas correspondentes serem implementadas.
 
 ## 7. Próximos artefatos recomendados
 
-1. Validação da matriz detalhada de capacidades, permissões e casos de uso da V1.
-2. Esquema lógico do PostgreSQL e migração inicial.
+1. Esquema lógico do PostgreSQL e migração inicial.
+2. Dicionário de dados por domínio/tabela.
 3. Contrato OpenAPI.
 4. Protótipo mobile navegável.
 5. Backlog em histórias verticais com critérios de aceite.
