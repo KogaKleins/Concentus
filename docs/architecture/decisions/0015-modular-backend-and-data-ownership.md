@@ -87,8 +87,8 @@ implementação nem escrita direta na tabela do destino.
 - APIs internas e ownership precisam ser revisados no código e no dicionário;
 - alguns casos de uso exigirão coordenação explícita entre módulos;
 - consultas cruzadas precisam impedir que conveniência vire escrita cruzada;
-- entrega confiável de efeitos após commit ainda exige escolher mecanismo de
-  outbox e processamento;
+- entrega confiável de efeitos após commit foi detalhada posteriormente no
+  ADR-0016, com pg-boss e worker separado;
 - módulos muito pequenos ou genéricos devem ser evitados.
 
 ## Alternativas rejeitadas

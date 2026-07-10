@@ -70,14 +70,16 @@ sequenceDiagram
     participant C as Caso de uso
     participant DB as PostgreSQL
     participant A as Auditoria
-    participant J as Efeitos posteriores
+    participant Q as pg-boss
+    participant W as apps/worker
     U->>C: Executa comando
     C->>DB: Inicia transação
     C->>DB: Altera estado principal
     C->>A: Registra auditoria crítica na transação
+    C->>Q: Cria job na mesma transação
     C->>DB: Confirma commit
     C-->>U: Operação confirmada
-    C->>J: Disponibiliza trabalho pós-commit
+    W->>Q: Processa job visível após commit
 ```
 
 Notificação ou processamento ainda pendente aparece como estado próprio. Uma

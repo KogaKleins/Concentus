@@ -10,18 +10,19 @@ início, mas as fronteiras de código e dados são tratadas como contratos reais
 | Módulos e propriedade de tabelas | Definido no ADR-0015 |
 | Escrita entre módulos | Proibida diretamente |
 | Consultas cruzadas | Permitidas na camada de leitura |
-| Transações e efeitos assíncronos | Direção definida no ADR-0015 |
-| Outbox e fila | Pendente |
+| Transações e efeitos assíncronos | Definido nos ADR-0015 e ADR-0016 |
+| Fila transacional | pg-boss definido no ADR-0016 |
 | Erros HTTP e idempotência de comandos | Pendente |
 | Observabilidade por módulo | Pendente |
 
 ## Documentos
 
 - [Módulos e dependências](modules-and-dependencies.md)
+- [Jobs assíncronos e workers](async-jobs-and-workers.md)
 - [ADR-0015](../decisions/0015-modular-backend-and-data-ownership.md)
+- [ADR-0016](../decisions/0016-postgresql-backed-jobs-with-pg-boss.md)
 
 ## Estrutura conceitual
-
 ```text
 apps/api/src/modules/<module>/
 ├── application/       casos de uso, comandos, queries e portas
