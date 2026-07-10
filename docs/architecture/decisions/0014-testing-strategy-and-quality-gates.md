@@ -5,7 +5,7 @@
 
 ## Contexto
 
-O monorepo reúne Next.js, NestJS, contratos Zod, PostgreSQL com futura RLS e um
+O monorepo reúne Next.js, NestJS, contratos Zod, PostgreSQL com RLS definida e um
 catálogo Storybook. Uma coleção de ferramentas sem divisão de responsabilidades
 criaria testes lentos, duplicados ou incapazes de detectar erros reais do banco e
 da autorização multi-tenant.

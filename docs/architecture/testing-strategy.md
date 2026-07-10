@@ -1,6 +1,9 @@
 # Estratégia de testes
 
 Este documento operacionaliza o [ADR-0014](decisions/0014-testing-strategy-and-quality-gates.md).
+Os gates específicos de segurança foram fechados no
+[ADR-0023](decisions/0023-security-tests-and-acceptance-gates.md) e em
+[Testes de segurança e critérios de aceite](security/security-tests-and-acceptance.md).
 
 ## 1. Camadas
 
@@ -54,11 +57,16 @@ voltar a ficar verde.
 Escopo crítico inicial:
 
 - autenticação e sessões;
+- CSRF, CORS e headers;
 - resolução e isolamento de tenant/RLS;
 - hierarquia e autorização;
 - convites de uso único;
 - impersonação e auditoria;
-- autorização e política de download.
+- autorização e política de download;
+- rate limit e abuso;
+- upload, antimalware e serving de arquivos;
+- workers e jobs com tenant;
+- segredos, logs seguros, backup e restore.
 
 Código gerado, tipos sem runtime e migrações declarativas não distorcem a métrica.
 Migrações continuam obrigatoriamente testadas contra PostgreSQL real. Cobertura é
@@ -102,6 +110,8 @@ prazo de correção; teste simplesmente desativado não conta como aprovado.
 | Publicação de material | Maestro publica e músico autorizado encontra o material |
 | Líder versus maestro | Líder atua no permitido e não ultrapassa bloqueio superior |
 | Comunicado e ciência | Membro comenta e confirma; autor consulta o estado correto |
+| Upload seguro | Arquivo válido passa; arquivo hostil não publica |
+| Sessão e CSRF | Mutação sem token falha; sessão revogada não acessa |
 
 O catálogo cresce quando um defeito relevante escapar ou uma nova jornada crítica
 entrar no produto. Variações combinatórias de permissão devem ficar nas camadas
@@ -116,7 +126,10 @@ mais rápidas sempre que possível.
 - testar migração desde banco vazio;
 - guardar relatório, trace e screenshot apenas em falhas ou conforme retenção de
   CI;
-- executar checklist manual em Safari/iOS e nos fluxos críticos de acessibilidade.
+- executar checklist manual em Safari/iOS e nos fluxos críticos de acessibilidade;
+- executar gates de segurança definidos no ADR-0023;
+- executar ZAP baseline e ZAP API scan quando houver OpenAPI disponível;
+- validar restore recente ou exceção formal antes de release candidata.
 
 ## 7. Organização
 
@@ -139,6 +152,9 @@ mais rápidas sempre que possível.
 7. Safari/iOS real permanece no checklist manual.
 8. cobertura abaixo do piso ou do ratchet bloqueia merge.
 9. `TEST_DATABASE_URL` insegura falha antes de executar limpeza ou migração.
+10. gate de segurança P0 pendente bloqueia release candidata.
+11. segredo detectado no repositório bloqueia PR.
+12. restore não testado bloqueia produção real.
 
 ## 9. Decisões pendentes
 

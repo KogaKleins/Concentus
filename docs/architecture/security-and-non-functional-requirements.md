@@ -2,6 +2,14 @@
 
 ## 1. Objetivos
 
+O baseline formal de segurança foi aceito no [ADR-0017](decisions/0017-security-baseline-and-threat-model.md).
+A implementação detalhada vive em [Arquitetura de segurança](security/README.md).
+Autenticação, sessões, cookies e CSRF foram detalhados em [Sessão, cookies e CSRF](security/session-cookies-and-csrf.md).
+RLS e contexto seguro de tenant foram detalhados em [RLS e contexto seguro de tenant](security/rls-and-tenant-context.md).
+Rate limit e controle de abuso foram detalhados em [Rate limit e controle de abuso](security/rate-limit-and-abuse.md).
+Upload seguro e antimalware foram detalhados em [Upload seguro e antimalware](security/secure-uploads-and-antimalware.md).
+Segredos, backup, restore e incidentes foram detalhados em [Segredos, backup e incidentes](security/secrets-backup-and-incident-response.md).
+
 1. Impedir vazamento entre orquestras.
 2. Tornar toda decisão de acesso reproduzível e auditável.
 3. Proteger contas administrativas e links sensíveis.
@@ -17,7 +25,7 @@
 - troca de e-mail exige verificação do novo endereço;
 - sessões revogáveis e rotação segura de tokens;
 - admin master usa conta separada da conta cotidiana de músico;
-- senhas nunca são visíveis a maestro, admin ou desenvolvedor.
+- senhas nunca são visíveis a maestro, admin ou desenvolvedor;
 - autenticação multifator é obrigatória para o admin master;
 - MFA é opcional, mas fortemente recomendado, para maestros/admins.
 
@@ -43,30 +51,52 @@ Embora o convite de membro não expire por decisão de produto, ele deve:
 - mudança de liderança invalida imediatamente permissões derivadas;
 - URLs de arquivo são temporárias, assinadas e emitidas somente após autorização.
 
+## 4.1. Rate limit e abuso
+
+- limites são aplicados por ação, conta, e-mail normalizado, sessão, tenant,
+  recurso e IP/prefixo conforme o risco;
+- login, MFA, recuperação de senha e convites usam resposta genérica quando
+  necessário para evitar enumeração;
+- bloqueio permanente automático de conta por erro de senha não será usado na V1;
+- uploads, downloads, SSE, comentários, buscas e jobs possuem limite de uso e/ou
+  concorrência;
+- maestros/admins podem ter limites maiores em ações administrativas, mas não
+  ilimitados;
+- eventos técnicos de abuso não viram relatório comportamental de músicos para
+  maestro na V1;
+- falha do limitador em rota sensível não deve liberar a operação silenciosamente.
+
 ## 5. Isolamento multi-tenant
 
 - `orchestra_id` obrigatório nas tabelas de domínio;
 - chaves e restrições impedem relacionamentos cruzados;
-- políticas de banco, como Row-Level Security do PostgreSQL, são recomendadas como
-  segunda barreira;
-- jobs assíncronos carregam explicitamente o tenant;
+- Row-Level Security do PostgreSQL é segunda barreira obrigatória para tabelas
+  tenant-scoped;
+- contexto de tenant é propagado ao banco de forma transacional;
+- jobs assíncronos carregam explicitamente tenant, ator, correlação e versão do
+  payload;
+- payloads de jobs não carregam segredo, arquivo bruto ou dado pessoal
+  desnecessário;
+- workers revalidam estado atual e falham fechados sem contexto de tenant;
 - cache e armazenamento usam namespace por orquestra;
 - testes automatizados tentam acessar IDs pertencentes a outro tenant.
 
 ## 6. Uploads
 
-- validar extensão, MIME real e assinatura do arquivo;
-- limitar tamanho por arquivo, lote e orquestra;
+- aceitar somente allowlist explícita de PDF, imagens, áudio e OOXML sem macro;
+- validar extensão, MIME real, assinatura e estrutura interna quando aplicável;
+- limitar tamanho por arquivo, lote e orquestra conforme ADR-0021;
+- manter upload em quarentena até validação e antimalware;
 - nomes originais nunca viram caminhos físicos;
 - servir arquivos com cabeçalhos seguros;
 - processar PDFs, imagens e áudio em ambiente isolado;
-- prever varredura antimalware;
-- apagar uploads incompletos ou órfãos após janela configurada pela orquestra;
+- varredura antimalware é obrigatória em produção antes de disponibilizar arquivo;
+- apagar uploads incompletos ou órfãos após janela operacional documentada;
 - notificar o proprietário com antecedência configurável antes da limpeza; se ele
   estiver inativo, encaminhar a pendência aos maestros/admins;
-- registrar hash do conteúdo para integridade e possível deduplicação futura.
-
-> **Pendente:** limites de tamanho, formatos exatos e cotas por orquestra.
+- registrar hash do conteúdo para integridade e possível deduplicação futura;
+- rejeitar compactados genéricos, executáveis, scripts, HTML, SVG de usuário,
+  Office legado e arquivos com macro na V1.
 
 ## 7. Privacidade
 
@@ -77,6 +107,15 @@ Embora o convite de membro não expire por decisão de produto, ele deve:
   rastreável;
 - logs não armazenam senha, token, conteúdo integral sensível ou URL assinada;
 - dados de uma orquestra não são reutilizados por outra sem ação do usuário.
+
+## 7.1. Segredos
+
+- segredo real não entra no repositório, documentação, ticket, print ou log;
+- `.env.example` documenta apenas nomes e formatos;
+- produção usa fonte operacional de segredos, não arquivo manual sem controle;
+- segredos de desenvolvimento, homologação e produção são separados;
+- credenciais críticas possuem dono, finalidade, local, rotação e revogação;
+- secret scanning é gate obrigatório antes de produção.
 
 ## 8. Auditoria
 
@@ -103,8 +142,8 @@ escopo da orquestra e escopo técnico da plataforma.
 - duração curta;
 - banner persistente e saída imediata disponível;
 - segunda confirmação para ações mutáveis;
-- registro do master e da conta representada;
-- impossibilidade de impersonar sem deixar trilha técnica.
+- registro do admin master e da conta representada no histórico técnico restrito;
+- impossibilidade de impersonar sem deixar trilha técnica;
 - histórico da orquestra mostra `Ação técnica da plataforma`, enquanto o vínculo
   com master e conta representada permanece no histórico técnico restrito.
 
@@ -119,18 +158,29 @@ escopo da orquestra e escopo técnico da plataforma.
 - logs técnicos de download permanecem por 90 dias por padrão; somente o admin
   master pode alterar globalmente o prazo;
 - política de retenção e backup precisa respeitar exclusões definitivas após a
-  janela técnica inevitável de backup.
+  janela técnica inevitável de backup;
+- exclusão definitiva pode permanecer em backups criptografados por até 30 dias na
+  V1, até expiração natural da janela rolling;
 - rascunhos de negócio não expiram automaticamente na V1; a limpeza automática
   limita-se a arquivos técnicos incompletos ou órfãos.
 
 ## 11. Disponibilidade e recuperação
 
 - backups automatizados e testados por restauração;
+- PostgreSQL usa base backup físico com WAL archiving para PITR em produção;
+- `pg_dump` pode existir como camada auxiliar, mas não substitui PITR;
+- object storage possui versionamento, cópia ou backup conforme infraestrutura;
+- restore isolado é obrigatório antes de produção e recorrente depois;
+- alvos iniciais: PostgreSQL RPO 15 min/RTO 4 h; plataforma completa RPO 24 h/RTO
+  8 h;
+- incidente SEV-1/SEV-2 exige registro, linha do tempo, contenção, recuperação e
+  pós-incidente;
 - versionamento/replicação do armazenamento conforme custo definido;
 - monitoramento de falhas de login, upload, processamento, e-mail e notificação;
+- monitoramento de filas pg-boss, retries e dead letters;
 - idempotência em publicação e envio de notificações;
 - uma falha num arquivo do lote não invalida uploads bem-sucedidos;
-- plano de recuperação com objetivos de perda e tempo ainda a definir.
+- plano de recuperação segue ADR-0022 e deve ser recalibrado após teste real.
 
 ## 12. Desempenho
 
@@ -151,7 +201,7 @@ escopo da orquestra e escopo técnico da plataforma.
 - foco visível, rótulos acessíveis e mensagens de erro acionáveis;
 - tamanho de toque confortável;
 - PDF e áudio com alternativa de download quando habilitada pelo responsável;
-- datas e horários coerentes com o fuso da orquestra/usuário.
+- datas e horários coerentes com o fuso da orquestra na V1; fuso por usuário fica para evolução posterior.
 
 Navegadores formalmente suportados: major atual e anterior de Chrome, Edge e
 Firefox, além da major atual e anterior do Safari no macOS e iOS. A ausência de
