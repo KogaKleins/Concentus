@@ -14,7 +14,7 @@ pastas, conversas individuais e dispositivos pessoais. Isso dificulta saber:
 
 ## 2. Visão do produto
 
-A Concentus será uma plataforma multi-orquestra, mobile-first, para organizar pessoas,
+Concentus será uma plataforma multi-orquestra, mobile-first, para organizar pessoas,
 espaços, repertórios, materiais de estudo e comunicação. Cada músico verá apenas
 o que lhe foi destinado por orquestra, naipe, sala, voz ou concessão individual.
 
@@ -46,7 +46,7 @@ no domínio e no código.
 ### Plataforma e acesso
 
 - múltiplas orquestras completamente isoladas;
-- um único admin master/dev da plataforma;
+- um único admin master da plataforma;
 - pesos administrativos internos atribuídos exclusivamente pelo master;
 - URL contextual por orquestra;
 - autenticação por e-mail validado e senha;

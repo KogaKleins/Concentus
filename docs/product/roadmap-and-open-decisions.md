@@ -16,13 +16,18 @@ flowchart LR
     F5 --> V1[V1 em produção]
 ```
 
+A segurança formal de arquitetura acontece ainda na F0, antes do código de
+negócio. A fase F5 representa hardening, testes finais, aceite e operação antes
+da produção.
+
 ## 2. Fases recomendadas
 
 ### F0 — Especificação
 
 - validar estes documentos;
+- aprovar o mapa de blocos e prontidão para implementação;
 - transformar regras numeradas em critérios de aceite;
-- escolher stack, provedores e ambiente;
+- confirmar provedores e ambiente;
 - produzir esquema lógico/SQL e contrato inicial da API;
 - criar protótipo navegável mobile.
 
@@ -84,8 +89,8 @@ flowchart LR
 - métricas avançadas;
 - interação entre orquestras;
 - aplicação móvel nativa, se necessária;
-- contas temporárias e ferramentas avançadas de desenvolvimento;
-- impersonação completa, caso não entre na primeira entrega técnica.
+- contas temporárias e ferramentas avançadas de desenvolvimento além da
+  impersonação auditada da V1.
 
 ## 4. Decisões abertas
 
@@ -95,14 +100,11 @@ das áreas correspondentes serem implementadas.
 | ID | Decisão | Momento limite |
 |---|---|---|
 | PEN-02 | Provedor de e-mail e armazenamento de objetos | Antes da F1 |
-| PEN-04 | Limites por arquivo/lote e cotas de armazenamento | Antes de uploads |
-| PEN-05 | Formatos permitidos exatos e política antimalware | Antes de uploads |
 | PEN-06 | Redirecionamento quando o slug da orquestra mudar | Antes de editar URL |
-| PEN-08 | Retenção de backups após exclusão definitiva | Antes de produção |
-| PEN-13 | Objetivos de recuperação e disponibilidade | Antes de produção |
 | PEN-16 | Slots, limites e moderação de imagens institucionais por orquestra | Antes da personalização de mídia |
+| PEN-17 | Política de troca de e-mail da conta global | Antes de implementar identidade, recuperação e convites |
 
-## 5. Decisões encerradas na consolidação de 02/07/2026
+## 5. Decisões já consolidadas
 
 | ID anterior | Decisão confirmada |
 |---|---|
@@ -122,11 +124,18 @@ das áreas correspondentes serem implementadas.
 | FRONT-05 | PWA cacheia apenas assets estáticos; instalação opcional; atualização nunca interrompe trabalho |
 | FRONT-06 | Download herda padrão da biblioteca, aceita exceção por material e não gera relatório ao maestro |
 | SEC-01 | Log técnico de download permanece 90 dias por padrão, configurável somente pelo master |
+| SEC-02 | Rate limit e controle de abuso em camadas para autenticação, e-mail, arquivos, SSE e interações |
+| SEC-03 | Upload seguro com quarentena, antimalware obrigatório em produção, allowlist de formatos e limites iniciais |
+| SEC-04 | Segredos fora do código, backup com PITR, restore testado, RPO/RTO iniciais e resposta a incidentes |
+| SEC-05 | Exclusão definitiva pode permanecer em backup criptografado por até 30 dias na V1 |
+| SEC-06 | Gates de segurança e matriz P0 definidos para PR, release candidata e produção |
 | FRONT-07 | WCAG 2.2 AA e suporte às duas majors mais recentes dos navegadores definidos |
 | QA-01 | Vitest, Storybook e Playwright; PostgreSQL real; gates diferentes em PR e release |
 | QA-02 | E2E crítico cobre identidade, isolamento, publicação, hierarquia e comunicados |
 | QA-03 | Testcontainers por padrão e cobertura 80/75%, com 90% de branches em segurança e ratchet |
 | BACK-01 | Nove módulos iniciais, tabela com um proprietário e efeitos não críticos após commit |
+| BACK-02 | pg-boss sobre PostgreSQL, job criado na mesma transação e worker em `apps/worker` |
+| GOV-01 | Mapa de blocos e prontidão aprovado como espinha dorsal até iniciar código |
 
 ## 6. Cenários essenciais de aceite da V1
 
@@ -178,9 +187,9 @@ das áreas correspondentes serem implementadas.
 
 ## 7. Próximos artefatos recomendados
 
-1. Matriz detalhada de permissões por ação.
+1. Validação da matriz detalhada de capacidades, permissões e casos de uso da V1.
 2. Esquema lógico do PostgreSQL e migração inicial.
 3. Contrato OpenAPI.
 4. Protótipo mobile navegável.
 5. Backlog em histórias verticais com critérios de aceite.
-6. Registro de decisões arquiteturais (ADRs).
+6. ADRs adicionais para decisões estruturais ainda abertas.

@@ -7,8 +7,16 @@ registradas aqui antes ou junto da implementação.
 |---|---|
 | Estado | Em definição |
 | Versão-alvo do produto | 1.0.0 |
-| Última consolidação | 02/07/2026 |
+| Última consolidação | 09/07/2026 |
 | Escopo documentado | Produto atual em desenvolvimento |
+
+## Navegação imediata
+
+| Documento | Conteúdo |
+|---|---|
+| [Foco atual](current-focus.md) | Onde paramos, próximo bloco e o que não abrir agora |
+| [Processo de decisões](governance/decision-process.md) | Como decisões passam de ideia para regra embasada |
+| [Blocos de projeção e prontidão](governance/project-blocks-and-readiness.md) | Espinha dorsal dos blocos já feitos e restantes até iniciar código |
 
 ## Produto
 
@@ -18,6 +26,7 @@ Documentação viva de como o produto deve funcionar agora.
 |---|---|
 | [Visão e escopo](product/vision-and-scope.md) | Objetivo, princípios, escopo da V1 e limites |
 | [Papéis e permissões](product/roles-and-permissions.md) | Hierarquia, propriedade, delegação e aprovações |
+| [Capacidades, permissões e casos de uso](product/capabilities-permissions-and-use-cases.md) | Matriz operacional de ações, escopos, auditoria e efeitos da V1 |
 | [Usuários, convites e perfis](product/users-invitations-and-profiles.md) | Identidade global, cadastro, perfil e ciclo de vida |
 | [Orquestras, espaços, naipes e vozes](product/orchestras-spaces-sections-and-voices.md) | Multitenancy, salas, formação e atribuições musicais |
 | [Bibliotecas, obras e materiais](product/libraries-works-and-materials.md) | Organização, upload, publicação e distribuição |
@@ -30,10 +39,11 @@ Documentação viva de como o produto deve funcionar agora.
 |---|---|
 | [Modelo conceitual de dados](architecture/conceptual-data-model.md) | Entidades, relacionamentos, isolamento e arquivos |
 | [Segurança e requisitos não funcionais](architecture/security-and-non-functional-requirements.md) | Segurança, privacidade, auditoria e qualidade |
+| [Arquitetura de segurança](architecture/security/README.md) | Baseline, threat model, controles e critérios de aceite |
 | [Mapa da arquitetura](architecture/README.md) | Estado das decisões e próximos artefatos técnicos |
 | [Arquitetura do banco](architecture/database/README.md) | Convenções, modelo lógico e dicionário de dados |
 | [Arquitetura frontend](architecture/frontend/README.md) | Rotas, shells, design system e showcase |
-| [Arquitetura backend](architecture/backend/README.md) | Módulos, ownership, dependências e transações |
+| [Arquitetura backend](architecture/backend/README.md) | Módulos, ownership, dependências, transações e workers |
 | [Estratégia de testes](architecture/testing-strategy.md) | Camadas, banco real, navegadores e gates de qualidade |
 | [Decisões arquiteturais](architecture/decisions/README.md) | Por que decisões estruturais foram tomadas |
 
@@ -45,6 +55,7 @@ Documentação viva de como o produto deve funcionar agora.
 | [Glossário](reference/glossary.md) | Vocabulário oficial do domínio |
 | [Versionamento](reference/versioning.md) | Releases, documentação, changelog e tags |
 | [Notas de release](releases/README.md) | Comunicação amigável de versões publicadas |
+| [Revisões da documentação](reviews/README.md) | Auditorias de coesão e legibilidade da documentação |
 
 ## Convenções
 

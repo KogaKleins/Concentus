@@ -3,7 +3,7 @@
 | Termo | Definição |
 |---|---|
 | Concentus | Plataforma multi-orquestra; não é o nome de nenhuma orquestra específica |
-| Admin master/dev | Única conta técnica com autoridade sobre a plataforma e todas as orquestras |
+| Admin master | Conta técnica de plataforma, normalmente do desenvolvedor, com autoridade sobre todas as orquestras |
 | Maestro/admin | Maior nível operacional dentro de uma orquestra; os dois títulos têm as mesmas capacidades |
 | Peso administrativo | Ordem de autoridade entre maestros/admins; maior administra menor, iguais coadministram |
 | Membro | Participante ativo de uma orquestra |

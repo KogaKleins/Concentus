@@ -19,7 +19,8 @@ relevantes são registradas em [CHANGELOG.md](CHANGELOG.md).
 
 Comece por:
 
-1. [Visão e escopo](docs/product/vision-and-scope.md)
-2. [Papéis, hierarquia e permissões](docs/product/roles-and-permissions.md)
-3. [Modelo conceitual de dados](docs/architecture/conceptual-data-model.md)
-4. [Fluxos e experiência mobile](docs/ux/flows-and-screens.md)
+1. [Foco atual](docs/current-focus.md)
+2. [Visão e escopo](docs/product/vision-and-scope.md)
+3. [Papéis, hierarquia e permissões](docs/product/roles-and-permissions.md)
+4. [Modelo conceitual de dados](docs/architecture/conceptual-data-model.md)
+5. [Fluxos e experiência mobile](docs/ux/flows-and-screens.md)

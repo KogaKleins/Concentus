@@ -21,7 +21,7 @@ flowchart TD
     B --> B3[Conteúdo B]
 ```
 
-- **ORG-01:** somente o admin master/dev cria ou desativa uma orquestra.
+- **ORG-01:** somente o admin master cria ou desativa uma orquestra.
 - **ORG-02:** a desativação bloqueia todos os membros, preserva os dados e permite
   reativação.
 - **ORG-03:** nenhuma interface da orquestra revela que outras existem.

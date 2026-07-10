@@ -4,7 +4,7 @@
 
 ```mermaid
 flowchart TD
-    MASTER[Admin master / dev da plataforma]
+    MASTER[Admin master da plataforma]
     MASTER --> ADMIN_HIGH[Maestro/admin de peso superior]
     ADMIN_HIGH --> ADMIN_LOW[Maestro/admin de peso inferior]
     ADMIN_LOW --> LEADER[Líder de naipe]
@@ -37,14 +37,14 @@ difíceis de prever.
 
 | Papel | Escopo | Capacidades principais |
 |---|---|---|
-| Admin master/dev | Plataforma | Criar/desativar orquestras, nomear primeiro admin, suporte técnico e impersonação |
+| Admin master | Plataforma | Criar/desativar orquestras, nomear primeiro admin, suporte técnico e impersonação |
 | Maestro/admin | Uma orquestra | Administrar membros, espaços, bibliotecas, comunicados, configurações e auditoria operacional |
 | Líder | Naipe específico | Administrar recursos liberados aos líderes e publicar comunicados no próprio naipe |
 | Membro | Associações próprias | Consumir materiais, interagir com comunicados e editar o próprio perfil |
 
 ## 3. Regras formais
 
-- **PER-01:** existe apenas um admin master/dev; ele não pode criar outro master.
+- **PER-01:** existe apenas um admin master; ele não pode criar outro master.
 - **PER-02:** maestro/admin pode promover um membro a maestro/admin.
 - **PER-03:** maestro/admin não pode rebaixar nem redefinir a senha de outro no
   mesmo nível; isso exige hierarquia superior.
@@ -55,19 +55,19 @@ difíceis de prever.
 - **PER-07:** decisões do maestro em uma obra prevalecem sobre decisões do líder.
 - **PER-08:** se o maestro não decidir uma atribuição de voz na obra, o líder pode
   decidi-la dentro do próprio naipe.
-- **PER-18:** maestros/admins de mesmo peso coadministram seus conteúdos.
-- **PER-19:** maestro/admin de peso maior administra conteúdo criado por peso
+- **PER-09:** maestros/admins de mesmo peso coadministram seus conteúdos.
+- **PER-10:** maestro/admin de peso maior administra conteúdo criado por peso
   menor.
-- **PER-20:** maestro/admin de peso menor solicita mudança em conteúdo criado por
+- **PER-11:** maestro/admin de peso menor solicita mudança em conteúdo criado por
   peso maior.
-- **PER-21:** somente o admin master atribui ou altera pesos administrativos.
+- **PER-12:** somente o admin master atribui ou altera pesos administrativos.
 
 ### Matriz resumida de autoridade
 
 `Contextual` significa “somente nos naipes, espaços ou recursos em que a pessoa
 possui a função/capacidade necessária”.
 
-| Ação | Master/dev | Maestro/admin | Líder | Membro |
+| Ação | Admin master | Maestro/admin | Líder | Membro |
 |---|---:|---:|---:|---:|
 | Criar/desativar orquestra | Sim | Não | Não | Não |
 | Criar outro master | Não | Não | Não | Não |
@@ -84,13 +84,16 @@ possui a função/capacidade necessária”.
 | Ver auditoria da orquestra | Suporte | Sim | Não | Não |
 | Ver auditoria de impersonação | Sim | Não | Não | Não |
 
-O master não atua rotineiramente no conteúdo. “Suporte” indica poder técnico
+O admin master não atua rotineiramente no conteúdo. “Suporte” indica poder técnico
 excepcional, sempre auditado.
 
 ## 4. Capacidades de recurso
 
 Papéis e capacidades não são sinônimos. Uma biblioteca pode conceder diferentes
 combinações:
+
+A matriz operacional detalhada de ações, escopos, auditoria e efeitos está em
+[Capacidades, permissões e casos de uso](capabilities-permissions-and-use-cases.md).
 
 | Capacidade | Significado |
 |---|---|
@@ -105,19 +108,19 @@ combinações:
 
 ## 5. Propriedade e delegação
 
-- **PER-09:** o criador é o proprietário operacional inicial do recurso.
-- **PER-10:** uma hierarquia superior pode administrar recursos criados abaixo.
-- **PER-11:** o criador pode editar e excluir o próprio conteúdo.
-- **PER-12:** para alterar, substituir ou excluir conteúdo criado acima, o usuário
+- **PER-13:** o criador é o proprietário operacional inicial do recurso.
+- **PER-14:** uma hierarquia superior pode administrar recursos criados abaixo.
+- **PER-15:** o criador pode editar e excluir o próprio conteúdo.
+- **PER-16:** para alterar, substituir ou excluir conteúdo criado acima, o usuário
   envia uma solicitação.
-- **PER-13:** a solicitação de substituição pode incluir o novo arquivo e uma
+- **PER-17:** a solicitação de substituição pode incluir o novo arquivo e uma
   justificativa; a troca ocorre somente após aprovação.
-- **PER-14:** líder que criou uma biblioteca pode compartilhá-la.
-- **PER-15:** líder que apenas recebeu uma biblioteca, mesmo como editor, não pode
+- **PER-18:** líder que criou uma biblioteca pode compartilhá-la.
+- **PER-19:** líder que apenas recebeu uma biblioteca, mesmo como editor, não pode
   repassá-la.
-- **PER-16:** recurso criado dentro de uma biblioteca de terceiro não pode ampliar
+- **PER-20:** recurso criado dentro de uma biblioteca de terceiro não pode ampliar
   o público permitido pela biblioteca superior.
-- **PER-17:** se o criador deixar a orquestra, seus recursos permanecem e passam
+- **PER-21:** se o criador deixar a orquestra, seus recursos permanecem e passam
   à administração da orquestra.
 
 Para maestros/admins, “acima”, “igual” e “abaixo” são determinados pelo peso
@@ -152,11 +155,11 @@ Permissões efetivas resultam de:
 
 ## 7. Impersonação
 
-- exclusiva do admin master/dev;
+- exclusiva do admin master;
 - exige motivo, nova autenticação e confirmação adicional para ações reais;
 - sessão curta com indicação visual permanente;
 - nunca revela nem substitui a senha do usuário;
-- ações reais registram usuário representado e master responsável;
+- ações reais registram, no histórico técnico restrito, o usuário representado e o admin master responsável;
 - metadados da sessão ficam no histórico técnico da plataforma, invisível aos
   maestros/admins da orquestra;
 - o histórico operacional da orquestra identifica o ator como `Ação técnica da

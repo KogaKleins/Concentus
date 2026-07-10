@@ -40,6 +40,29 @@ produto adota a política definida em
 - Backend dividido em nove módulos NestJS, ownership explícito de tabelas,
   consultas cruzadas somente para leitura e efeitos não críticos após commit.
 
+- Fila assíncrona com pg-boss sobre PostgreSQL, jobs criados na mesma transação
+  da operação principal e worker separado em `apps/worker`.
+- Processo de decisões embasadas, documento de foco atual e revisões formais de
+  coesão da documentação.
+- Baseline formal de segurança com OWASP ASVS 5.0.0, threat model inicial,
+  sessão server-side, CSRF explícito, MFA para admin master e RLS como segunda barreira.
+- ADR-0018 e documento operacional para autenticação, sessões, cookies seguros,
+  CSRF, CORS e headers HTTP mínimos.
+- ADR-0019 e documento operacional para RLS, contexto transacional de tenant,
+  papéis de banco, workers e testes de isolamento.
+- ADR-0020 e documento operacional para rate limit, controle de abuso, quotas de
+  consumo, cooldowns de autenticação, downloads, uploads, SSE e interações.
+- ADR-0021 e documento operacional para upload seguro, quarentena, antimalware,
+  allowlist de formatos, limites iniciais, serving privado e limpeza de arquivos.
+- ADR-0022 e documento operacional para segredos, rotação, logs seguros,
+  backup/restore, RPO/RTO e resposta a incidentes.
+- ADR-0023 e documento operacional para testes de segurança, gates de aceite,
+  evidências de release, matriz P0 e fechamento documental do pacote de segurança.
+- Revisão minuciosa do pacote de segurança, com correções de coesão, reforço de
+  referências e registro formal dos riscos residuais.
+- Mapa de blocos e prontidão aprovado como espinha dorsal até iniciar código, e
+  matriz P1 de capacidades, permissões e casos de uso criada para validação.
+
 ### Changed
 
 - A plataforma passa a se chamar Concentus.

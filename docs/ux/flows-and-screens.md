@@ -217,7 +217,7 @@ sequenceDiagram
     Master->>App: Solicita ação real
     App-->>Master: Exige confirmação adicional
     Master->>App: Confirma
-    App->>App: Executa e registra ambos os atores
+    App->>App: Executa e registra ambos no log técnico
     App->>App: Registra "Ação técnica da plataforma" na orquestra
     Master->>App: Encerra impersonação
 ```

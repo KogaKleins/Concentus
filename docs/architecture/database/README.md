@@ -39,7 +39,7 @@ existe; a divergência documental é um defeito e deve ser corrigida imediatamen
 | [Modelo lógico](logical-model.md) | Inicial | Schemas, domínios e inventário previsto |
 | [Dicionário](dictionary/README.md) | Estrutura definida | Índice de tabelas por domínio |
 | [Modelo de ficha](dictionary/table-template.md) | Definido | Formato obrigatório para cada tabela |
-| RLS e contexto de tenant | A criar | Políticas e propagação por transação |
+| [RLS e contexto de tenant](../security/rls-and-tenant-context.md) | Definido | Políticas e propagação por transação |
 | Migrações e seeds | A criar | Evolução, rollback e dados iniciais |
 | Índices e desempenho | A criar | Estratégia de acesso e observabilidade |
 
@@ -67,7 +67,6 @@ tenant aplicável e testes de migração.
 database/
 ├── conventions.md
 ├── logical-model.md
-├── rls-and-tenant-context.md
 ├── migrations-and-seeds.md
 ├── indexes-and-performance.md
 └── dictionary/
